@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: bronze_source   # logical name used in dbt
+    schema: "Bronze"
+    tables:
+      - name: buildings_183
+        identifier: 183_buildings
+        description: "Building footprints"
+      - name: address
+      - name: address_locations
+      - name: au_subcounty_unit
+      - name: bd_land_rate_data
+      - name: building_permits
+      - name: power_customers
+      - name: trade_license
+      - name: water_meters
+      - name: cp_cadastral_parcel
