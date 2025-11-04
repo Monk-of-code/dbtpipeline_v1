@@ -1,0 +1,10 @@
+venv/
+.env
+.env.dbt
+__pycache__
+.git
+.idea
+airflow/logs/*
+.DS_Store
+.ipynb_checkpoints
+airflow/dags/__pycache__

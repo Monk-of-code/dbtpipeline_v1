@@ -61,7 +61,7 @@ models:
         +materialized: incremental
         +schema: 'Silver'
 
-      innterest:      # subfolder under staging/
+      interest:      # subfolder under staging/
         +materialized: incremental
         +schema: 'Silver'  
       

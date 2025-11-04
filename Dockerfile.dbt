@@ -1,0 +1,39 @@
+# FILE: Dockerfile.dbt (Corrected & Simplified)
+
+# ---- Stage 1: The "Builder" ----
+FROM python:3.11-slim AS builder
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# requirements.txt should list dbt-core, dbt-postgres, etc.
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# ---- Stage 2: The "Final" Image ----
+FROM python:3.11-slim
+
+# Install only RUNTIME dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy the virtual environment from the builder
+COPY --from=builder /opt/venv /opt/venv
+
+# Activate the venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Set a clean working directory
+WORKDIR /usr/app
+
+# The entrypoint & command will be set by docker-compose
+
+ENV DBT_PROFILES_DIR=/usr/app/dbt/.dbt

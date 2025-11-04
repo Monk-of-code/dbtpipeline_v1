@@ -1,6 +1,0 @@
-# Core dbt packages
-dbt-core==1.9.9
-dbt-postgres==1.9.0
-
-#airflow -dbt dependencies
-astronomer-cosmos
